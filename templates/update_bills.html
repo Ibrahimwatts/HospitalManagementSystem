@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Bills</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Update Bills and Balances</h2>
+
+        <!-- Form to update bills -->
+        <form method="POST" action="/update_bills">
+            <div class="form-group">
+                <label for="patient_id">Enter Patient ID</label>
+                <input type="number" name="patient_id" id="patient_id" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="total_amount">Total Amount</label>
+                <input type="number" step="0.01" name="total_amount" id="total_amount" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="balance">Balance</label>
+                <input type="number" step="0.01" name="balance" id="balance" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" class="form-control" required>
+                    <option value="Pending">Pending</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Overdue">Overdue</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Update Bill</button>
+        </form>
+
+        <!-- Back to Dashboard -->
+        <a href="/dashboard" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+</body>
+
+</html>

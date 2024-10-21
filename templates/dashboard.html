@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Hospital Management System</title>
+    <link rel="stylesheet" href="C:\Projects\HMS\static\css\style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .dashboard-card {
+            margin: 20px 0;
+        }
+
+        .dashboard-card h3 {
+            color: #fff;
+        }
+
+        .card-header {
+            background-color: #007bff;
+        }
+
+        .card-header.admin {
+            background-color: #28a745;
+        }
+
+        .card-header.user {
+            background-color: #17a2b8;
+        }
+
+        .dashboard-btn {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1>Welcome; Integrated Hospital Management System</h1>
+
+        <div class="row">
+            <!-- User-Specific Actions -->
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-header user">
+                        <h3>View Bills and Balances</h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="/view_bills" class="btn btn-info dashboard-btn">View Bills and Balances</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-header user">
+                        <h3>Manage Patients</h3>
+                    </div>
+                    <div class="card-body">
+                        {% if role == 'user' %}
+                        <a href="/patients" class="btn btn-primary dashboard-btn">Patients Queue</a>
+                        <a href="/add_patient" class="btn btn-success dashboard-btn">Add Patient</a>
+                        {% endif %}
+
+                        {% if role == 'admin' %}
+                        <a href="/patients" class="btn btn-primary dashboard-btn">Attend Patients</a>
+                        <a href="/add_patient" class="btn btn-success dashboard-btn">Add Patient</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Admin-Specific Actions -->
+            {% if role == 'admin' %}
+            
+            <div class="col-md-4 dashboard-card">
+                <div class="card">
+                    <div class="card-header admin">
+                        <h3>Update Bills and Balances</h3>
+                    </div>
+                    <div class="card-body">
+                        <a href="/update_bills" class="btn btn-warning dashboard-btn">Edit Bills and Balances</a>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</body>
+
+</html>

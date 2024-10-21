@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Bills and Balances</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 24px;
+            }
+
+            .table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Bills and Balances</h2>
+
+        <!-- Table displaying bills and balances -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Total Amount</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <!-- If the user is an admin, show the 'Actions' column -->
+                    {% if user_role == 'admin' %}
+                        <th>Actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% if bills %}
+                    {% for bill in bills %}
+                    <tr>
+                        <td>{{ bill['patient_id'] }}</td>
+                        <td>${{ bill['total_amount'] }}</td>
+                        <td>${{ bill['balance'] }}</td>
+                        <td>{{ bill['status'] }}</td>
+                        <!-- Admin only: Provide options for actions like edit or delete -->
+                        {% if user_role == 'admin' %}
+                            <td>
+
+                                <!-- Delete button wrapped in a form for POST request -->
+                                <form action="/delete_bill/{{ bill['patient_id'] }}" method="POST" class="inline-form">
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="5">No bills found.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <!-- Back to Dashboard button -->
+        <a href="/dashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </div>
+</body>
+
+</html>
